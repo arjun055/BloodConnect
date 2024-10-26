@@ -1,5 +1,6 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom';
+import logo from './Logo.jpeg';
 function Header() {
     return (
         <header className="pb-6 bg-white lg:pb-0">
@@ -13,7 +14,7 @@ function Header() {
                   {/* Custom Logo */}
                   <img
                     className="w-auto h-8 lg:h-10 mr-2"
-                    src="your-logo-url.png"  // Replace this with your own logo URL
+                    src={logo}  // Replace this with your own logo URL
                     alt="BloodConnect Logo"
                   />
                   {/* Title */}
@@ -38,12 +39,12 @@ function Header() {
     
               {/* Desktop Navigation Links */}
               <div className="hidden lg:flex lg:items-center lg:ml-auto lg:space-x-10">
-                <a href="#home" className="text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
+                <Link to="/" className="text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
                   Home
-                </a>
-                <a href="#profile" className="text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
+                </Link>
+                <Link to="/profile" className="text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
                   Profile
-                </a>
+                </Link>
               </div>
             </nav>
     
@@ -51,12 +52,12 @@ function Header() {
             <nav className="pt-4 pb-6 bg-white border border-gray-200 rounded-md shadow-md lg:hidden">
               <div className="flow-root">
                 <div className="flex flex-col px-6 -my-2 space-y-1">
-                  <a href="#home" className="inline-flex py-2 text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
+                  <Link to="/" className="inline-flex py-2 text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
                     Home
-                  </a>
-                  <a href="#profile" className="inline-flex py-2 text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
+                  </Link>
+                  <Link to="/profile" className="inline-flex py-2 text-base font-medium text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
                     Profile
-                  </a>
+                  </Link>
                 </div>
               </div>
             </nav>

@@ -1,95 +1,64 @@
-// src/BloodBankMap.js
-import React, { useEffect, useState } from 'react';
-import { GoogleMap, Marker, InfoWindow, LoadScript } from '@react-google-maps/api';
-
-const BloodBankMap = ({ latitude, longitude }) => {
-  console.log(latitude,longitude);
-  const GAK = import.meta.env.VITE_GOOGLE_API_KEY;
-  const [bloodBanks, setBloodBanks] = useState([]);
-  const [selectedBank, setSelectedBank] = useState(null);
-//   const [loading, setLoading] = useState(true);
+// 
 
 
-  const mapContainerStyle = {
-    height: '500px',
-    width: '100%',
-  };
 
-  const center = {
-    lat: latitude,
-    lng: longitude,
-  };
 
-  const radius = 5000; // 5 km radius
 
-  useEffect(() => {
-    const fetchBloodBanks = async () => {
-      const response = await fetch(`http://localhost:9173/api/blood-banks?latitude=${latitude}&longitude=${longitude}`);
-      const data = await response.json();
-      if (data.results) {
-        setBloodBanks(data.results);
-      }
+import React, { useState } from "react";
+
+const BloodBankMap = () => {
+    const [showMap, setShowMap] = useState(false);
+
+    const handleButtonClick = () => {
+        setShowMap(true);
     };
 
-    // const fetchBloodBanks = async () => {
-    //   setLoading(true); // Set loading to true when starting the fetch
-    //   try {
-    //     const response = await fetch(
-    //       `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=${radius}&type=blood_bank&key=${GAK}`
-    //     );
-    //     const data = await response.json();
-    //     if (data.results) {
-    //       setBloodBanks(data.results);
-    //     }
-    //   } catch (error) {
-    //     console.error("Failed to fetch blood banks:", error);
-    //   } finally {
-    //     setLoading(false); // Set loading to false once fetch is complete
-    //   }
-    // };
+    return (
+        <div style={styles.container}>
+            <h1>Find Nearby Blood Banks</h1>
+            <button onClick={handleButtonClick} style={styles.button}>
+                Find !!!
+            </button>
+            {showMap && (
+                <div style={styles.mapContainer}>
+                    <iframe
+                        src="https://www.google.com/maps/d/embed?mid=1GOIqOnZrSLPm_nqxyx4wckW5LrHEqt8&ehbc=2E312F"
+                        width="640"
+                        height="480"
+                        style={styles.iframe}
+                        title="Blood Banks Map"
+                    ></iframe>
+                </div>
+            )}
+        </div>
+    );
+};
 
-    fetchBloodBanks();
-  }, [latitude,longitude]);
-
-  return (
-    <LoadScript googleMapsApiKey={GAK}>
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        center={center}
-        zoom={13}
-      >
-        {bloodBanks.map((bank) => (
-          <Marker
-            key={bank.place_id}
-            position={{
-              lat: bank.geometry.location.lat(),
-              lng: bank.geometry.location.lng(),
-            }}
-            onClick={() => {
-              setSelectedBank(bank);
-            }}
-          />
-        ))}
-
-        {selectedBank && (
-          <InfoWindow
-            position={{
-              lat: selectedBank.geometry.location.lat(),
-              lng: selectedBank.geometry.location.lng(),
-            }}
-            onCloseClick={() => {
-              setSelectedBank(null);
-            }}
-          >
-            <div>
-              <h4>{selectedBank.name}</h4>
-              <p>{selectedBank.vicinity}</p>
-            </div>
-          </InfoWindow>
-        )}
-      </GoogleMap>
-    </LoadScript>
-  );
+const styles = {
+    container: {
+        fontFamily: "Arial, sans-serif",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        marginTop: 50,
+    },
+    button: {
+        padding: "10px 20px",
+        fontSize: 16,
+        cursor: "pointer",
+        backgroundColor: "#4CAF50",
+        color: "white",
+        border: "none",
+        borderRadius: 5,
+        outline: "none",
+    },
+    mapContainer: {
+        display: "block",
+        marginTop: 20,
+    },
+    iframe: {
+        border: 0,
+    },
 };
 
 export default BloodBankMap;

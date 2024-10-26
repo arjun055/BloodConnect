@@ -6,6 +6,7 @@ const app = express();
 const PORT = 9167;
 
 app.use(cors());
+app.use(express.json());
 
 app.get('/api/blood-banks', async (req, res) => {
   const { latitude, longitude } = req.query;
