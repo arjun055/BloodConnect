@@ -14,34 +14,34 @@ const BloodNotificationForm = () => {
         }, 5000);
     };
 
-    // const notifyUsers = async () => {
-    //     if (bloodType) {
-    //         const response = await fetch("https://localhost:3000/api/notify-users", {
-    //             method: "POST",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //             },
-    //             body: JSON.stringify({ bloodType }),
-    //         });
+    const notifyUsers = async () => {
+        if (bloodType) {
+            const response = await fetch("https://localhost:3000/api/notify-users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ bloodType }),
+            });
 
-    //         if (response.ok) {
-    //             showNotification(`Users notified for blood type: ${bloodType}`);
-    //         } else {
-    //             showNotification('Failed to notify users.');
-    //         }
-    //     } else {
-    //         showNotification('Please select a blood type.');
-    //     }
-    // };
+            if (response.ok) {
+                showNotification(`Users notified for blood type: ${bloodType}`);
+            } else {
+                showNotification('Failed to notify users.');
+            }
+        } else {
+            showNotification('Please select a blood type.');
+        }
+    };
 
-    // const notifyBloodBank = () => {
-    //     if (bloodType) {
-    //         showNotification(`Notifying blood bank for blood type: ${bloodType}`);
-    //         // Add logic to notify blood bank here
-    //     } else {
-    //         showNotification('Please select a blood type.');
-    //     }
-    // };
+    const notifyBloodBank = () => {
+        if (bloodType) {
+            showNotification(`Notifying blood bank for blood type: ${bloodType}`);
+            // Add logic to notify blood bank here
+        } else {
+            showNotification('Please select a blood type.');
+        }
+    };
 
     return (
         <div style={styles.formContainer}>
